@@ -64,3 +64,18 @@ demoApp.directive('faModal', ['modals', function (modals) {
     }
   };
 }]);
+
+demoApp.directive('faSettings', function () {
+});
+
+demoApp.directive('faComposer', ['modals', function (modals) {
+  return {
+    require: 'faModal',
+
+    link: function (scope, element, attrs, modalCtrl) {
+      scope.showSettings = function () {
+        modals.show('settings');
+      };
+    }
+  };
+}]);

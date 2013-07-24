@@ -10,6 +10,7 @@
   <body ng-controller="demoCtrl">
 
     <button ng-click="show('settings')">Settings</button>
+    <button ng-click="show('composer')">Composer</button>
     <button ng-click="close()">Close</button>
 
     <fa-modal id="settings" class="modal" ng-show="open">
@@ -18,5 +19,14 @@
         <p>SETTINGS</p>
       </div>
     </fa-modal>
+
+    <fa-modal id="composer" fa-composer class="modal" ng-show="open">
+      <div class="content">
+        <button class="close" ng-click="close()">X</button>
+        <p>COMPOSER</p>
+        <button ng-click="showSettings()">Show Settings</button>
+      </div>
+    </fa-modal>
+
   </body>
 </html>
