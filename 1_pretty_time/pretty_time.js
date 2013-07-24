@@ -11,7 +11,7 @@ demoApp.controller('demoCtrl', ['$scope', function ($scope) {
     $scope.times.push(randomTime());
 }]);
 
-demoApp.filter('prettyTime', function () {
+demoApp.filter('prettyTime', ['prettyTimeTick', function (prettyTimeTick) {
   return function (time) {
     var now = Date.now(),
         elapsed = Math.round((now - time) / 1000),
@@ -23,6 +23,9 @@ demoApp.filter('prettyTime', function () {
       return n < 10 ? '0' + n : n;
     }
 
+    if (prettyTimeTick.long)
+      return new Date(time).toString();
+
     if (hours > 0)
       return hours + 'h ' + twoDigits(minutes) + 'm ' + twoDigits(seconds) + 's';
     else if (minutes > 0)
@@ -30,7 +33,7 @@ demoApp.filter('prettyTime', function () {
     else
       return seconds + 's';
   };
-});
+}]);
 
 demoApp.directive('faPrettyTime', ['prettyTimeTick', function (prettyTimeTick) {
   return {
@@ -42,7 +45,13 @@ demoApp.directive('faPrettyTime', ['prettyTimeTick', function (prettyTimeTick) {
       time: '='
     },
 
-    template: '<div>{{time | prettyTime}}</div>'
+    template: '<div ng-click="toggle()">{{time | prettyTime}}</div>',
+
+    link: function (scope) {
+      scope.toggle = function () {
+        prettyTimeTick.toggleFormat();
+      };
+    }
   };
 }]);
 
@@ -55,4 +64,10 @@ demoApp.service('prettyTimeTick', ['$rootScope', '$timeout', function ($rootScop
   }
 
   tick();
+
+  this.long = false;
+
+  this.toggleFormat = function () {
+    this.long = !this.long;
+  };
 }]);
