@@ -1,0 +1,58 @@
+html {
+  font-family: Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  box-sizing: border-box;
+}
+
+.modal {
+  position: absolute;
+  width: 500px;
+  height: 300px;
+  left: 50%;
+  top: 50%;
+  margin: -150px auto auto -250px;
+  background: #eee;
+  text-align: center;
+  z-index: 100;
+}
+
+#settings {
+  left: 30%;
+  top: 30%;
+}
+
+#composer {
+  left: 60%;
+  top: 60%;
+}
+
+.modal .content {
+  position: relative;
+  width: 80%;
+  height: 80%;
+  padding: 10%;
+}
+
+.modal .content p {
+  margin: 0;
+}
+
+.modal .content button.close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.overlay {
+  background: #eee;
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+}
