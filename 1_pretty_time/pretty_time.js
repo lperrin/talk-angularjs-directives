@@ -45,11 +45,16 @@ demoApp.directive('faPrettyTime', ['$timeout', function ($timeout) {
     template: '<div>{{time | prettyTime}}</div>',
 
     link: function (scope, element, attrs) {
+      var cancel;
+
       function refresh() {
-        $timeout(refresh, 1000);
+        scope.$digest();
+        cancel = $timeout(refresh, 1000, false);
       }
 
-      refresh();
+      cancel = $timeout(refresh, 1000, false);
+
+      scope.$on('$destroy', cancel);
     }
   };
 }]);
