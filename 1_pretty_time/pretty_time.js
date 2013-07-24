@@ -28,3 +28,17 @@ demoApp.filter('prettyTime', function () {
       return seconds + 's';
   };
 });
+
+demoApp.directive('faPrettyTime', function () {
+  return {
+    restrict: 'E',
+
+    replace: true,
+
+    scope: {
+      time: '='
+    },
+
+    template: '<div>{{time | prettyTime}}</div>'
+  };
+});
