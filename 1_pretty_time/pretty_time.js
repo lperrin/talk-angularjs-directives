@@ -29,7 +29,7 @@ demoApp.filter('prettyTime', function () {
   };
 });
 
-demoApp.directive('faPrettyTime', function () {
+demoApp.directive('faPrettyTime', ['$timeout', function ($timeout) {
   return {
     restrict: 'E',
 
@@ -39,6 +39,14 @@ demoApp.directive('faPrettyTime', function () {
       time: '='
     },
 
-    template: '<div>{{time | prettyTime}}</div>'
+    template: '<div>{{time | prettyTime}}</div>',
+
+    link: function (scope, element, attrs) {
+      function refresh() {
+        $timeout(refresh, 1000);
+      }
+
+      refresh();
+    }
   };
-});
+}]);
