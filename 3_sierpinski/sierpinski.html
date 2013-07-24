@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html ng-app="demoApp">
+  <head>
+    <title>Sierpinksi Demo</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"></meta>
+    <link rel="stylesheet" href="style.css"></link>
+    <script type="text/javascript" src="../vendor/jquery-2.0.3.js"></script>
+    <script type="text/javascript" src="../vendor/angular-1.1.5.js"></script>
+    <script type="text/javascript" src="sierpinski.js"></script>
+  </head>
+  <body ng-controller="demoCtrl">
+    <button ng-click="render = true">Render AngularJS</button>
+    <button id="jQueryRender">Render jQuery</button>
+    <div depth="0" ng-if="render"></div>
+    <div id="jQueryTarget" ng-non-bindable></div>
+  </body>
+</html>
