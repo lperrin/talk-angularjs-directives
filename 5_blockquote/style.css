@@ -1,0 +1,37 @@
+html {
+  font-family: Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+blockquote, .quote {
+  color: #888;
+  border-left: 2px solid #ddd;
+  padding-left: 10px;
+  margin-left: 10px;
+}
+
+.blockquote-enter, .blockquote-leave {
+  position: relative;
+  -webkit-transition: all ease 1s;
+  transition: all ease 1s;
+}
+
+.blockquote-enter {
+  top: 100px;
+  opacity: 0;
+}
+
+.blockquote-leave {
+  top: 0;
+  opacity: 1;
+}
+
+.blockquote-enter.blockquote-enter-active {
+  top: 0;
+  opacity: 1;
+}
+
+.blockquote-leave.blockquote-leave-active {
+  top: 100px;
+  opacity: 0;
+}
