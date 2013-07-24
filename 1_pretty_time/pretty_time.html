@@ -5,6 +5,6 @@
     <script type="text/javascript" src="pretty_time.js"></script>
   </head>
   <body ng-controller="demoCtrl">
-    <fa-pretty-time time="time"></fa-pretty-time>
+    <fa-pretty-time ng-repeat="time in times" time="time"></fa-pretty-time>
   </body>
 </html>

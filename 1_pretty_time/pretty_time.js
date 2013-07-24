@@ -5,7 +5,10 @@ demoApp.controller('demoCtrl', ['$scope', function ($scope) {
     return Date.now() - Math.round(Math.random()*2*60*60*1000);
   }
 
-  $scope.time = randomTime();
+  $scope.times = [];
+
+  for (var i = 0; i < 300; i++)
+    $scope.times.push(randomTime());
 }]);
 
 demoApp.filter('prettyTime', function () {
