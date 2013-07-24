@@ -32,7 +32,7 @@ demoApp.filter('prettyTime', function () {
   };
 });
 
-demoApp.directive('faPrettyTime', ['$timeout', function ($timeout) {
+demoApp.directive('faPrettyTime', ['prettyTimeTick', function (prettyTimeTick) {
   return {
     restrict: 'E',
 
@@ -42,19 +42,17 @@ demoApp.directive('faPrettyTime', ['$timeout', function ($timeout) {
       time: '='
     },
 
-    template: '<div>{{time | prettyTime}}</div>',
-
-    link: function (scope, element, attrs) {
-      var cancel;
-
-      function refresh() {
-        scope.$digest();
-        cancel = $timeout(refresh, 1000, false);
-      }
-
-      cancel = $timeout(refresh, 1000, false);
-
-      scope.$on('$destroy', cancel);
-    }
+    template: '<div>{{time | prettyTime}}</div>'
   };
+}]);
+
+demoApp.service('prettyTimeTick', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
+  function tick() {
+    $timeout(function () {
+      $rootScope.$apply();
+      tick();
+    }, 1000);
+  }
+
+  tick();
 }]);
