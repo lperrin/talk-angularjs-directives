@@ -9,8 +9,8 @@
     <script type="text/javascript" src="select.js"></script>
   </head>
   <body ng-controller="demoCtrl">
-    <ul>
-      <li ng-repeat="version in versions"><input type="checkbox" ng-model="checked">{{version.semver}} {{version.name}}</li>
+    <ul fa-select="selection">
+      <li ng-repeat="version in versions"><input type="checkbox" ng-model="checked" fa-select-option="version">{{version.semver}} {{version.name}}</li>
     </ul>
 
     <span>Selected: {{selection}}</span>

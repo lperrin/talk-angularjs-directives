@@ -15,3 +15,42 @@ demoApp.controller('demoCtrl', function ($scope) {
 
   $scope.selection = [];
 });
+
+demoApp.directive('faSelect', ['$parse', function ($parse) {
+  return {
+    controller: function ($scope, $element, $attrs) {
+      var getter = $parse($attrs.faSelect);
+
+      function getSelection() {
+        return getter($scope);
+      }
+
+      this.toggle = function (item, selected) {
+        var selection = getSelection(),
+            pos = selection.indexOf(item);
+
+        // add or remove item from selection
+        if (selected && pos < 0)
+          selection.push(item);
+        else if (!selected && pos >= 0)
+          selection.splice(pos, 1);
+      };
+    }
+  };
+}]);
+
+demoApp.directive('faSelectOption', function () {
+  return {
+    require: '^faSelect',
+
+    scope: {
+      item: '=faSelectOption'
+    },
+
+    link: function (scope, element, attrs, selectCtrl) {
+      scope.$watch('checked', function (checked) {
+        selectCtrl.toggle(scope.item, checked);
+      });
+    }
+  };
+});
