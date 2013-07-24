@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html ng-app="demoApp">
+  <head>
+    <title>Select Demo</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"></meta>
+    <link rel="stylesheet" href="style.css"></link>
+    <script type="text/javascript" src="../vendor/jquery-2.0.3.js"></script>
+    <script type="text/javascript" src="../vendor/angular-1.1.5.js"></script>
+    <script type="text/javascript" src="select.js"></script>
+  </head>
+  <body ng-controller="demoCtrl">
+    <ul>
+      <li ng-repeat="version in versions"><input type="checkbox" ng-model="checked">{{version.semver}} {{version.name}}</li>
+    </ul>
+
+    <span>Selected: {{selection}}</span>
+  </body>
+</html>
