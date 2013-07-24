@@ -1,6 +1,6 @@
 var demoApp = angular.module('demoApp', []);
 
-demoApp.directive('blockquote', function () {
+demoApp.directive('blockquote', ['$animator', function ($animator) {
   return {
     replace: true,
 
@@ -13,12 +13,13 @@ demoApp.directive('blockquote', function () {
     compile: function (element, attrs, transclude) {
       return function ($scope, $element, $attrs) {
         var childElement, childScope;
+        var animate = $animator($scope, $attrs);
 
         $scope.hidden = true;
 
         $scope.$watch('hidden', function (hidden) {
           if (childElement) {
-            childElement.remove();
+            animate.leave(childElement);
             childElement = null;
           }
 
@@ -31,11 +32,11 @@ demoApp.directive('blockquote', function () {
             childScope = $scope.$new();
             transclude(childScope, function (clone) {
               childElement = clone;
-              $element.find('.blockquote-target').append(childElement);
+              animate.enter(childElement, $element, $element.find('.blockquote-target'));
             });
           }
         });
       };
     }
   };
-});
+}]);
