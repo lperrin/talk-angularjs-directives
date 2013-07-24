@@ -4,10 +4,6 @@ demoApp.controller('demoCtrl', ['$scope', 'modals', function ($scope, modals) {
   $scope.show = function (modalName) {
     modals.show(modalName);
   };
-
-  $scope.close = function () {
-    modals.close();
-  };
 }]);
 
 demoApp.service('modals', ['$rootScope', function ($rootScope) {
@@ -50,6 +46,8 @@ demoApp.directive('faModal', ['modals', function (modals) {
     scope: {},
 
     controller: function ($scope) {
+      this.cancellable = false;
+
       this.toggle = function (open) {
         $scope.open = open;
       };
@@ -66,6 +64,13 @@ demoApp.directive('faModal', ['modals', function (modals) {
 }]);
 
 demoApp.directive('faSettings', function () {
+  return {
+    require: 'faModal',
+
+    link: function (scope, element, attrs, modalCtrl) {
+      modalCtrl.cancellable = true;
+    }
+  };
 });
 
 demoApp.directive('faComposer', ['modals', function (modals) {
@@ -76,6 +81,35 @@ demoApp.directive('faComposer', ['modals', function (modals) {
       scope.showSettings = function () {
         modals.show('settings');
       };
+    }
+  };
+}]);
+
+demoApp.directive('faOverlay', ['modals', function (modals) {
+  return {
+    restrict: 'E',
+
+    replace: true,
+
+    template: '<div class="overlay" ng-show="isModalOpen()"></div>',
+
+    link: function (scope, element) {
+      scope.isModalOpen = function () {
+        return modals.isModalOpen();
+      };
+
+      element.on('click', function ($event) {
+        if (!modals.isModalOpen())
+          return;
+
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        scope.$apply(function () {
+          if (modals.openModal.cancellable)
+            modals.close();
+        });
+      });
     }
   };
 }]);

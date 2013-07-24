@@ -13,7 +13,7 @@
     <button ng-click="show('composer')">Composer</button>
     <button ng-click="close()">Close</button>
 
-    <fa-modal id="settings" class="modal" ng-show="open">
+    <fa-modal id="settings" fa-settings class="modal" ng-show="open">
       <div class="content">
         <button class="close" ng-click="close()">X</button>
         <p>SETTINGS</p>
@@ -28,5 +28,6 @@
       </div>
     </fa-modal>
 
+    <fa-overlay></fa-overlay>
   </body>
 </html>
