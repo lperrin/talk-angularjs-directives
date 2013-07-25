@@ -1,5 +1,7 @@
 var demoApp = angular.module('demoApp', []);
 
+// This will attach an array with 300 random recent times so
+// performance issues will be easy to detect.
 demoApp.controller('demoCtrl', ['$scope', function ($scope) {
   function randomTime() {
     return Date.now() - Math.round(Math.random()*2*60*60*1000);
@@ -11,6 +13,7 @@ demoApp.controller('demoCtrl', ['$scope', function ($scope) {
     $scope.times.push(randomTime());
 }]);
 
+// Just a simple filter that you can call with {{time || prettyTime}}
 demoApp.filter('prettyTime', ['prettyTimeTick', function (prettyTimeTick) {
   return function (time) {
     var now = Date.now(),
@@ -55,6 +58,8 @@ demoApp.directive('faPrettyTime', ['prettyTimeTick', function (prettyTimeTick) {
   };
 }]);
 
+// All fa-pretty-time directives are connected by a common singleton service.
+// We use it to refresh all times at the same time
 demoApp.service('prettyTimeTick', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
   function tick() {
     $timeout(function () {

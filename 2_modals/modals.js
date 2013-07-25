@@ -6,6 +6,11 @@ demoApp.controller('demoCtrl', ['$scope', 'modals', function ($scope, modals) {
   };
 }]);
 
+// This service tracks the currently open modal
+// It knows all the available modals because they register their
+// controller when they are linked by AngularJS.
+//
+// modules requiring this service can simply call: modals.open('modal-name');
 demoApp.service('modals', ['$rootScope', function ($rootScope) {
   this.modals = {};
   this.openModal = null;
@@ -45,6 +50,8 @@ demoApp.directive('faModal', ['modals', function (modals) {
 
     scope: {},
 
+    // this controller can be used by directives in the same tag
+    // by using "require"
     controller: function ($scope) {
       this.cancellable = false;
 
@@ -85,6 +92,8 @@ demoApp.directive('faComposer', ['modals', function (modals) {
   };
 }]);
 
+// This will open an absolutely positioned <div> that will intercept clicks
+// when a modal is open. Based on its configuration, it will cancel it
 demoApp.directive('faOverlay', ['modals', function (modals) {
   return {
     restrict: 'E',
